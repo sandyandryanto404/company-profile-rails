@@ -1,5 +1,15 @@
+=begin
+ * This file is part of the Sandy Andryanto Company Profile Website.
+ *
+ * @author     Sandy Andryanto <sandy.andryanto404@gmail.com>
+ * @copyright  2024
+ *
+ * For the full copyright and license information,
+ * please view the LICENSE.md file that was distributed
+ * with this source code.
+=end
+
 class Reference < ApplicationRecord
-    belongs_to :portfolio
     has_many :article_references
     has_many :article, through: :article_references
 end

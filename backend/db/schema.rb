@@ -100,15 +100,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["updated_at"], name: "index_faqs_on_updated_at"
   end
 
-  create_table "login_attempts", charset: "latin1", force: :cascade do |t|
-    t.string "ip_address"
-    t.string "login"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["ip_address"], name: "index_login_attempts_on_ip_address"
-    t.index ["login"], name: "index_login_attempts_on_login"
-  end
-
   create_table "portfolio_images", charset: "latin1", force: :cascade do |t|
     t.bigint "portfolio_id", null: false
     t.string "image", limit: 191, null: false
@@ -147,7 +138,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.string "slug", null: false
     t.string "name", null: false
     t.text "description"
-    t.integer "type", default: 0
+    t.integer "type_data", default: 0
     t.integer "status", limit: 2, default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -155,22 +146,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["name"], name: "index_references_on_name"
     t.index ["slug"], name: "index_references_on_slug"
     t.index ["status"], name: "index_references_on_status"
-    t.index ["type"], name: "index_references_on_type"
+    t.index ["type_data"], name: "index_references_on_type_data"
     t.index ["updated_at"], name: "index_references_on_updated_at"
-  end
-
-  create_table "roles", charset: "latin1", force: :cascade do |t|
-    t.string "code", limit: 64, null: false
-    t.string "name", limit: 191, null: false
-    t.text "description"
-    t.integer "status", limit: 2, default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["code"], name: "index_roles_on_code"
-    t.index ["created_at"], name: "index_roles_on_created_at"
-    t.index ["name"], name: "index_roles_on_name"
-    t.index ["status"], name: "index_roles_on_status"
-    t.index ["updated_at"], name: "index_roles_on_updated_at"
   end
 
   create_table "services", charset: "latin1", force: :cascade do |t|
@@ -193,7 +170,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.string "image", limit: 191
     t.string "title", limit: 191, null: false
     t.text "description"
-    t.string "link", limit: 191, null: false
+    t.string "link", limit: 191
     t.integer "sort", default: 0
     t.integer "status", limit: 2, default: 0
     t.datetime "created_at", null: false
@@ -257,95 +234,34 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
   end
 
   create_table "users", charset: "latin1", force: :cascade do |t|
-    t.string "image", limit: 64
+    t.string "email", limit: 191, null: false
+    t.string "phone", limit: 20
+    t.string "password_digest"
+    t.string "image", limit: 191
     t.string "first_name", limit: 64
     t.string "last_name", limit: 191
     t.string "gender", limit: 2
     t.string "country", limit: 64
-    t.string "province", limit: 191
-    t.string "postal_code", limit: 191
-    t.string "birth_place", limit: 191
-    t.date "birth_date"
-    t.string "twitter", limit: 191
-    t.string "facebook", limit: 191
-    t.string "instagram", limit: 191
     t.text "address"
     t.text "about_me"
-    t.string "username", limit: 191, null: false
-    t.string "email", limit: 191, null: false
-    t.string "phone", limit: 20
-    t.string "password_digest"
     t.integer "status", limit: 2, default: 0
+    t.string "reset_token", limit: 191
+    t.string "confirm_token", limit: 191, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["birth_place"], name: "index_users_on_birth_place"
+    t.index ["confirm_token"], name: "index_users_on_confirm_token"
     t.index ["country"], name: "index_users_on_country"
     t.index ["created_at"], name: "index_users_on_created_at"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["facebook"], name: "index_users_on_facebook"
+    t.index ["email"], name: "index_users_on_email"
     t.index ["first_name"], name: "index_users_on_first_name"
     t.index ["gender"], name: "index_users_on_gender"
     t.index ["image"], name: "index_users_on_image"
-    t.index ["instagram"], name: "index_users_on_instagram"
     t.index ["last_name"], name: "index_users_on_last_name"
     t.index ["password_digest"], name: "index_users_on_password_digest"
-    t.index ["phone"], name: "index_users_on_phone", unique: true
-    t.index ["postal_code"], name: "index_users_on_postal_code"
-    t.index ["province"], name: "index_users_on_province"
+    t.index ["phone"], name: "index_users_on_phone"
+    t.index ["reset_token"], name: "index_users_on_reset_token"
     t.index ["status"], name: "index_users_on_status"
-    t.index ["twitter"], name: "index_users_on_twitter"
     t.index ["updated_at"], name: "index_users_on_updated_at"
-    t.index ["username"], name: "index_users_on_username", unique: true
-  end
-
-  create_table "users_notifications", charset: "latin1", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "subject", limit: 191, null: false
-    t.string "description", null: false
-    t.text "content", size: :long
-    t.integer "status", limit: 2, default: 0
-    t.datetime "expired_at", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["created_at"], name: "index_users_notifications_on_created_at"
-    t.index ["description"], name: "index_users_notifications_on_description"
-    t.index ["expired_at"], name: "index_users_notifications_on_expired_at"
-    t.index ["subject"], name: "index_users_notifications_on_subject"
-    t.index ["updated_at"], name: "index_users_notifications_on_updated_at"
-    t.index ["user_id"], name: "index_users_notifications_on_user_id"
-  end
-
-  create_table "users_password_resets", charset: "latin1", force: :cascade do |t|
-    t.string "email", limit: 64, null: false
-    t.string "token", limit: 191, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["created_at"], name: "index_users_password_resets_on_created_at"
-    t.index ["email"], name: "index_users_password_resets_on_email"
-    t.index ["token"], name: "index_users_password_resets_on_token"
-    t.index ["updated_at"], name: "index_users_password_resets_on_updated_at"
-  end
-
-  create_table "users_roles", primary_key: ["user_id", "role_id"], charset: "latin1", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "role_id", null: false
-    t.index ["role_id"], name: "index_users_roles_on_role_id"
-    t.index ["user_id"], name: "index_users_roles_on_user_id"
-  end
-
-  create_table "users_verifications", charset: "latin1", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "token", limit: 191, null: false
-    t.integer "status", limit: 2, default: 0
-    t.datetime "expired_at", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["created_at"], name: "index_users_verifications_on_created_at"
-    t.index ["expired_at"], name: "index_users_verifications_on_expired_at"
-    t.index ["status"], name: "index_users_verifications_on_status"
-    t.index ["token"], name: "index_users_verifications_on_token"
-    t.index ["updated_at"], name: "index_users_verifications_on_updated_at"
-    t.index ["user_id"], name: "index_users_verifications_on_user_id"
   end
 
   add_foreign_key "article_comments", "article_comments", column: "parent_id"
@@ -358,8 +274,4 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
   add_foreign_key "portfolios", "customers"
   add_foreign_key "portfolios", "references"
   add_foreign_key "testimonials", "customers"
-  add_foreign_key "users_notifications", "users"
-  add_foreign_key "users_roles", "roles"
-  add_foreign_key "users_roles", "users"
-  add_foreign_key "users_verifications", "users"
 end

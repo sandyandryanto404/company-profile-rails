@@ -46,3 +46,7 @@ group :development do
   # gem "spring"
 end
 
+#dependencies
+gem 'faker'
+gem 'bcrypt'
+gem 'jwt'
