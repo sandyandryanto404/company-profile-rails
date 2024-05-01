@@ -24,4 +24,12 @@ Rails.application.routes.draw do
   get '/page/contact', to: 'page#contact'
   post '/page/message', to: 'page#message'
 
+  get '/portfolio/list', to: 'portfolio#list'
+  get '/portfolio/detail/:id', to: 'portfolio#detail'
+
+  get '/article/list', to: 'article#list'
+  get '/article/detail/:slug', to: 'article#detail'
+  get '/article/comments/:id', to: 'article#comment_list'
+  post '/article/comment/:id', to: 'article#comment_create'
+
 end
