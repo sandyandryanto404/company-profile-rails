@@ -40,16 +40,25 @@ class ForgotPassword extends Component{
     async submitForm(fields){
         if(Object.keys(this.state.errors).length === 0){
             await AuthService.emailForgot(fields).then((result) => {
-                let data = result.data
-                let success = data.success
-                this.setState({
-                    loadingSubmit: false,
-                    success: success
-                })
+                setTimeout(() => { 
+
+                    let data = result.data
+                    let token = data.data.token
+                    let success = data.message
+                    this.setState({
+                        loadingSubmit: false,
+                        success: success
+                    })
+
+                    setTimeout(() => { 
+                        this.props.router.navigate("/auth/email/reset/"+token)
+                    }, 1500)
+
+                }, 2000)
             }).catch((error) => {
                 let response = error.response
                 let data = response.data
-                let message = data.errors
+                let message = data.message
                 this.setState({
                     loadingSubmit: false,
                     message: message

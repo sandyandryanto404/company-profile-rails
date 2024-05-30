@@ -118,12 +118,12 @@ class Profile extends Component{
                 fields: {
                     email: profile.email,
                     phone: profile.phone,
-                    first_name: profile.firstName,
-                    last_name: profile.lastName,
+                    first_name: profile.first_name,
+                    last_name: profile.last_name,
                     address: profile.address,
                     gender: profile.gender,
                     country: profile.country,
-                    about_me: profile.aboutMe
+                    about_me: profile.about_me
                 },
                 countries: countries,
                 loading: false,
@@ -158,8 +158,8 @@ class Profile extends Component{
             await AccountService.upload(formData).then((result) => { 
                 setTimeout(() => {
                     let defaultImage  = this.state.imgPreview
-                    if(result.data.image){
-                        defaultImage = process.env.REACT_APP_BACKEND_URL+"/"+result.data.image
+                    if(result.data.data){
+                        defaultImage = process.env.REACT_APP_BACKEND_URL+"/"+result.data.data
                     }
                     this.setState({
                         imgPreview: defaultImage,

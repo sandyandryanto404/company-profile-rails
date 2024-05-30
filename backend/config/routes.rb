@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get '/page/faq', to: 'page#faq'
   get '/page/contact', to: 'page#contact'
   post '/page/message', to: 'page#message'
+  post '/page/subscribe', to: 'page#subscribe'
 
   get '/portfolio/list', to: 'portfolio#list'
   get '/portfolio/detail/:id', to: 'portfolio#detail'

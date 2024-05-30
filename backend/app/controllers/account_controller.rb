@@ -96,6 +96,8 @@ class AccountController < ApplicationController
 
     def profile_upload
 
+        Dir.mkdir(Rails.root.join('storage', 'uploads')) unless Dir.exist?(Rails.root.join('storage', 'uploads'))
+
         uploaded_io = params[:file]
 
         file_uuid = SecureRandom.uuid

@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
-  create_table "article_comments", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "article_comments", charset: "latin1", force: :cascade do |t|
     t.bigint "parent_id"
     t.bigint "article_id", null: false
     t.bigint "user_id", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["user_id"], name: "index_article_comments_on_user_id"
   end
 
-  create_table "articles", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "articles", charset: "latin1", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "image", limit: 191
     t.string "slug", null: false
@@ -44,14 +44,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
-  create_table "articles_references", primary_key: ["article_id", "reference_id"], charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "articles_references", primary_key: ["article_id", "reference_id"], charset: "latin1", force: :cascade do |t|
     t.bigint "article_id", null: false
     t.bigint "reference_id", null: false
     t.index ["article_id"], name: "index_articles_references_on_article_id"
     t.index ["reference_id"], name: "index_articles_references_on_reference_id"
   end
 
-  create_table "contacts", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "contacts", charset: "latin1", force: :cascade do |t|
     t.string "name", limit: 191
     t.string "email", limit: 191
     t.string "subject", limit: 191
@@ -67,7 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["updated_at"], name: "index_contacts_on_updated_at"
   end
 
-  create_table "customers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "customers", charset: "latin1", force: :cascade do |t|
     t.string "image", limit: 191
     t.string "name", limit: 191, null: false
     t.string "phone", limit: 191, null: false
@@ -86,7 +86,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["updated_at"], name: "index_customers_on_updated_at"
   end
 
-  create_table "faqs", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "faqs", charset: "latin1", force: :cascade do |t|
     t.string "question"
     t.text "answer", null: false
     t.integer "sort", default: 0
@@ -100,7 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["updated_at"], name: "index_faqs_on_updated_at"
   end
 
-  create_table "portfolio_images", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "portfolio_images", charset: "latin1", force: :cascade do |t|
     t.bigint "portfolio_id", null: false
     t.string "image", limit: 191, null: false
     t.integer "status", limit: 2, default: 0
@@ -113,7 +113,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["updated_at"], name: "index_portfolio_images_on_updated_at"
   end
 
-  create_table "portfolios", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "portfolios", charset: "latin1", force: :cascade do |t|
     t.bigint "customer_id", null: false
     t.bigint "reference_id", null: false
     t.string "title", null: false
@@ -134,7 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["updated_at"], name: "index_portfolios_on_updated_at"
   end
 
-  create_table "references", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "references", charset: "latin1", force: :cascade do |t|
     t.string "slug", null: false
     t.string "name", null: false
     t.text "description"
@@ -150,7 +150,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["updated_at"], name: "index_references_on_updated_at"
   end
 
-  create_table "services", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "services", charset: "latin1", force: :cascade do |t|
     t.string "icon", limit: 191
     t.string "title", limit: 191
     t.text "description"
@@ -166,7 +166,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["updated_at"], name: "index_services_on_updated_at"
   end
 
-  create_table "sliders", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "sliders", charset: "latin1", force: :cascade do |t|
     t.string "image", limit: 191
     t.string "title", limit: 191, null: false
     t.text "description"
@@ -184,7 +184,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["updated_at"], name: "index_sliders_on_updated_at"
   end
 
-  create_table "teams", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "teams", charset: "latin1", force: :cascade do |t|
     t.string "image", limit: 191
     t.string "name", limit: 191, null: false
     t.string "email", limit: 191, null: false
@@ -213,7 +213,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["updated_at"], name: "index_teams_on_updated_at"
   end
 
-  create_table "testimonials", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "testimonials", charset: "latin1", force: :cascade do |t|
     t.bigint "customer_id", null: false
     t.string "image", limit: 191
     t.string "name", limit: 191, null: false
@@ -233,7 +233,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_25_220332) do
     t.index ["updated_at"], name: "index_testimonials_on_updated_at"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "users", charset: "latin1", force: :cascade do |t|
     t.string "email", limit: 191, null: false
     t.string "phone", limit: 20
     t.string "password_digest"

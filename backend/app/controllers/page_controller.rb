@@ -29,12 +29,31 @@ class PageController < ApplicationController
             users.first_name,
             users.last_name,
             users.gender,
-            users.about_me
+            users.about_me,
+            (SELECT 
+				GROUP_CONCAT(r.name SEPARATOR ',') AS r 
+				FROM `references` r
+				WHERE r.id IN (
+					SELECT reference_id
+					FROM articles_references
+					WHERE article_id = articles.id
+				)
+			) as categories
         ")
         .where("articles.status = 1")
         .joins("INNER JOIN users ON users.id = articles.user_id")
-        .limit(4)
+        .limit(3)
         .order("articles.id desc")
+
+        testimonial = Testimonial.select("
+            testimonials.*,
+            customers.name customer_name
+        ")
+        .where("testimonials.status = 1")
+        .joins("INNER JOIN customers ON customers.id = testimonials.customer_id")
+        .limit(1)
+        .order("testimonials.id desc")
+        .first
 
         data = {
             header: {
@@ -43,7 +62,7 @@ class PageController < ApplicationController
             },
             sliders: Slider.where("status = 1").order("sort asc"),
             services: Service.where("status = 1").limit(4).order("sort asc"),
-            testimonial: Service.where("status = 1").order("id desc").first,
+            testimonial: testimonial,
             articles: articles
         }
 
